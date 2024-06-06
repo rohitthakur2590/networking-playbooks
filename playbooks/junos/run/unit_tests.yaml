@@ -1,0 +1,20 @@
+---
+- name: Run Unit Tests
+  hosts: localhost
+  gather_facts: false
+  vars_prompt:
+    - name: test_resource
+      prompt: "Enter the name of the unit test file (e.g., l2_interfaces): "
+      private: false
+
+  tasks:
+    - name: Run unit tests
+      ansible.builtin.command: python3 -m pytest tests/unit/modules/network/junos/test_junos_{{ test_resource }}.py
+      args:
+        chdir: ~/ansible-collections/collections/ansible_collections/junipernetworks/junos/
+      register: test_output
+      become: false
+
+    - name: Display test output
+      ansible.builtin.debug:
+        msg: "{{ test_output.stdout }}"

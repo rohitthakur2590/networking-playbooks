@@ -1,0 +1,22 @@
+---
+- name: Deleted Operation on EOS Layer 3 Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Set interface configuration
+      ansible.builtin.set_fact:
+        config:
+          - name: Ethernet1
+          - name: Ethernet2
+
+    - name: Delete specified interface configuration
+      register: result
+      arista.eos.eos_l3_interfaces:
+        config: "{{ config }}"
+        state: deleted
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result

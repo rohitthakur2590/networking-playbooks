@@ -1,0 +1,15 @@
+---
+- name: Gathered Operation on EOS Layer 3 Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Gather current interface configuration
+      register: current_interfaces
+      arista.eos.eos_l3_interfaces:
+        state: gathered
+
+    - name: Print gathered configuration
+      ansible.builtin.debug:
+        var: current_interfaces

@@ -1,0 +1,13 @@
+---
+- name: Run Integration Tests
+  hosts: localhost
+  gather_facts: false
+  vars_prompt:
+    - name: selected_resource
+      prompt: "Enter the resource you want to test (e.g., junos_l2_interfaces): "
+  tasks:
+    - name: Run integration tests
+      command: ansible-test network-integration --inventory test-inventory {{ selected_resource }} -vvv
+      args:
+        chdir: ~/ansible-collections/collections/ansible_collections/junipernetworks/junos/tests/integration/
+      become: false

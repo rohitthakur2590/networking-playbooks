@@ -1,0 +1,28 @@
+---
+- name: Replaced Operation on EOS Layer 3 Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Set interface configuration
+      ansible.builtin.set_fact:
+        config:
+          - name: Ethernet1
+            description: "Configured by Ansible - Interface 1"
+            ip_address: "10.0.0.1/24"
+            enabled: true
+          - name: Ethernet2
+            description: "Configured by Ansible - Interface 2"
+            ip_address: "10.0.0.2/24"
+            enabled: true
+
+    - name: Replace device configuration with provided configuration
+      register: result
+      arista.eos.eos_l3_interfaces:
+        config: "{{ config }}"
+        state: replaced
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result

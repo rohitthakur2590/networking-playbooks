@@ -1,0 +1,16 @@
+---
+- name: Rendered Operation on EOS Layer 3 Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Render configuration template
+      register: rendered_config
+      arista.eos.eos_l3_interfaces:
+        config: "{{ lookup('template', 'interface.j2') }}"
+        state: rendered
+
+    - name: Print rendered configuration
+      ansible.builtin.debug:
+        var: rendered_config
