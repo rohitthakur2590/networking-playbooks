@@ -1,0 +1,27 @@
+# Example configuration for labeler action
+
+# Label for changes to documentation files
+documentation:
+  - '**/*.md'
+  - '**/*.rst'
+
+# Label for changes to Ansible playbooks
+ansible-playbooks:
+  - 'playbooks/**/*.yml'
+
+# Label for changes to roles
+roles:
+  - 'roles/**/*.yml'
+
+# Label for changes to inventory files
+inventory:
+  - 'inventories/**/*.yml'
+
+# Label for changes to CI configuration files
+ci:
+  - '.github/workflows/**/*.yml'
+  - 'ansible.cfg'
+
+# Label for changes to any other files (default case)
+miscellaneous:
+  - '**'
