@@ -7,7 +7,7 @@ documentation:
 
 # Label for changes to Ansible playbooks
 ansible-playbooks:
-  - 'playbooks/**/*.yml'
+  - 'playbooks/**/**/*.yaml'
 
 # Label for changes to roles
 roles:
@@ -15,11 +15,11 @@ roles:
 
 # Label for changes to inventory files
 inventory:
-  - 'inventories/**/*.yml'
+  - 'inventories/**/*.yaml'
 
 # Label for changes to CI configuration files
 ci:
-  - '.github/workflows/**/*.yml'
+  - '.github/workflows/**/*.yaml'
   - 'ansible.cfg'
 
 # Label for changes to any other files (default case)
