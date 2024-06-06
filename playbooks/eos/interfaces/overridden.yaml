@@ -1,0 +1,22 @@
+---
+- name: Overridden Operation on EOS Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Override the current configuration with the provided configuration
+      arista.eos.eos_interfaces:
+        config:
+          - name: Ethernet1
+            description: New Configuration by Ansible - Interface 1
+            mtu: 1500
+            speed: 1g
+            enabled: true
+            duplex: half
+        state: overridden
+      register: result
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result

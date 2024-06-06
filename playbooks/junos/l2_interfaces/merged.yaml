@@ -1,0 +1,26 @@
+---
+- name: Merged Operation on Junos Layer 2 Interfaces
+  hosts: junos
+  gather_facts: no
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Merge the provided configuration with the existing running configuration
+      register: result
+      junos_l2_interfaces:
+        config:
+          - interface: ge-0/0/1
+            description: "Configured by Ansible - Interface 1"
+            vlan_members: [10, 20]
+            mtu: 1500
+            enabled: true
+          - interface: ge-0/0/2
+            description: "Configured by Ansible - Interface 2"
+            vlan_members: [30]
+            mtu: 1500
+            enabled: true
+        state: merged
+
+    - name: Print result
+      debug:
+        var: result

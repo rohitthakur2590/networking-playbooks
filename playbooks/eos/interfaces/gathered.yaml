@@ -1,0 +1,15 @@
+---
+- name: Gathered Operation on EOS Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Gather information about the interfaces
+      arista.eos.eos_interfaces:
+        state: gathered
+      register: result
+
+    - name: Print gathered information
+      ansible.builtin.debug:
+        var: result.config

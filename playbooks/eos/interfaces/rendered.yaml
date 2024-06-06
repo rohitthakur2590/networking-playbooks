@@ -1,0 +1,22 @@
+---
+- name: Rendered Operation on EOS Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Render the provided configuration
+      arista.eos.eos_interfaces:
+        config:
+          - name: Ethernet1
+            description: Configured by Ansible - Interface 1
+            mtu: 1024
+            speed: 100m
+            enabled: false
+            duplex: full
+        state: rendered
+      register: result
+
+    - name: Print rendered configuration
+      ansible.builtin.debug:
+        var: result.config

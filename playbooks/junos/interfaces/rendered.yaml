@@ -1,0 +1,25 @@
+---
+- name: Rendered Operation on Junos Interfaces
+  hosts: junos
+  gather_facts: no
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Render the provided configuration
+      junos_interfaces:
+        config:
+          - name: ge-0/0/1
+            description: Configured by Ansible - Interface 1
+            mtu: 1024
+            speed: 100m
+            enabled: false
+            duplex: full-duplex
+            hold_time:
+              up: 2000
+              down: 2200
+        state: rendered
+      register: result
+
+    - name: Print rendered configuration
+      debug:
+        var: result.config

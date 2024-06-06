@@ -1,0 +1,39 @@
+---
+- name: Merged Operation on Junos Interfaces
+  hosts: junos
+  gather_facts: no
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Merge the provided configuration with the exisiting running configuration
+      register: result
+      junos_interfaces: &id001
+        config:
+          - name: ge-0/0/1
+            description: Configured by Ansible - Interface 1
+            mtu: 1024
+            speed: 100m
+            enabled: false
+            duplex: full-duplex
+            hold_time:
+              up: 2000
+              down: 2200
+
+          - name: ge-0/0/2
+            description: Configured by Ansible - Interface 2
+            mtu: 2048
+            speed: 10m
+            hold_time:
+              up: 3000
+              down: 3200
+          - name: fe-0/0/2
+            units:
+              - name: 10
+                description: "This is logical interface UNIT 10"
+              - name: 11
+                description: "This is logical interface UNIT 11"
+        state: merged
+
+    - name: Print result
+      debug:
+        var: result
