@@ -1,0 +1,24 @@
+---
+- name: Overridden Operation on EOS Layer 2 Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Set config
+      ansible.builtin.set_fact:
+      config:
+        - name: Ethernet1
+          mode: trunk
+          trunk:
+    
+    - name: Override device configuration with provided configuration
+      register: result
+      arista.eos.eos_l2_interfaces:
+        config: "{{ config }}"
+        state: overridden
+      become: yes
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result

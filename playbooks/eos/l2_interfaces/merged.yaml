@@ -1,0 +1,29 @@
+---
+- name: Merged Operation on EOS Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Set config
+      ansible.builtin.set_fact:
+      config:
+        - name: Ethernet1
+          mode: trunk
+          trunk:
+            native_vlan: 10
+
+        - name: Ethernet2
+          access:
+            vlan: 30
+    
+    - name: Merge provided configuration with device configuration
+      register: result
+      become: true
+      arista.eos.eos_l2_interfaces:
+        config: "{{ config }}"
+        state: merged
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result
