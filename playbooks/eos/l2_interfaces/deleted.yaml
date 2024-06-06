@@ -1,0 +1,17 @@
+---
+- name: Deleted Operation on EOS Layer 2 Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Delete specified interface configuration
+      register: result
+      arista.eos.eos_l2_interfaces:
+        config: "{{ config }}"
+        state: deleted
+      become: yes
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result

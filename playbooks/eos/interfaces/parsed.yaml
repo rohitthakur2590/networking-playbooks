@@ -7,7 +7,7 @@
   tasks:
     - name: Parse the provided configuration
       arista.eos.eos_interfaces:
-        config:
+        running_config:
           - name: Ethernet1
         state: parsed
       register: result

@@ -7,7 +7,7 @@
   tasks:
     - name: Render the provided configuration
       junos_interfaces:
-        config:
+        running_config:
           - name: ge-0/0/1
             description: Configured by Ansible - Interface 1
             mtu: 1024

@@ -1,0 +1,16 @@
+---
+- name: Parsed Operation on EOS Layer 2 Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Parse existing interface configuration
+      register: parsed_interfaces
+      arista.eos.eos_l2_interfaces:
+        running_config: "{{ config }}"
+        state: parsed
+
+    - name: Print parsed configuration
+      ansible.builtin.debug:
+        var: parsed_interfaces

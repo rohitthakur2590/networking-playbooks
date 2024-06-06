@@ -7,7 +7,7 @@
   tasks:
     - name: Parse the provided configuration
       junos_interfaces:
-        config:
+        running_config:
           - name: ge-0/0/1
         state: parsed
       register: result
