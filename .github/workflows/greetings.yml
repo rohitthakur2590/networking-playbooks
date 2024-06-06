@@ -1,0 +1,26 @@
+name: Greetings
+
+on: 
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+  issues:
+    types: [opened]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: >
+            👋 Welcome to the repository! Thank you for taking the time to open an issue.
+            Our team will review it as soon as possible. If you have any additional details
+            or context, please feel free to add them here. We appreciate your contribution!
+          pr-message: >
+            👋 Thanks for submitting a pull request! Your effort in contributing to the project is greatly appreciated.
+            Our team will review your changes shortly. If you have any additional details or context about your PR,
+            please add them in the description. We appreciate your support in improving the project!
