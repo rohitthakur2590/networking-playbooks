@@ -1,0 +1,15 @@
+---
+- name: Gathered Operation on Junos Interfaces
+  hosts: junos
+  gather_facts: no
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Gather information about the interfaces
+      junos_interfaces:
+        state: gathered
+      register: result
+
+    - name: Print gathered information
+      debug:
+        var: result.config

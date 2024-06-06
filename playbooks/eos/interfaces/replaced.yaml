@@ -1,0 +1,22 @@
+---
+- name: Replaced Operation on EOS Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Replace the existing configuration with the provided configuration
+      arista.eos.eos_interfaces:
+        config:
+          - name: Ethernet1
+            description: Replaced Configuration by Ansible - Interface 1
+            mtu: 9000
+            speed: 1g
+            enabled: true
+            duplex: full
+        state: replaced
+      register: result
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result

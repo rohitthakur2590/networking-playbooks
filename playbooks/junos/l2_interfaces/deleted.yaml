@@ -1,0 +1,20 @@
+---
+- name: Deleted Operation on Junos Layer 2 Interfaces
+  hosts: junos
+  gather_facts: no
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Delete the specified interface configuration
+      register: result
+      junos_l2_interfaces:
+        config:
+          - interface: ge-0/0/1
+            vlan_members: [10, 20]
+          - interface: ge-0/0/2
+            vlan_members: [30]
+        state: deleted
+
+    - name: Print result
+      debug:
+        var: result

@@ -1,0 +1,17 @@
+---
+- name: Parsed Operation on Junos Interfaces
+  hosts: junos
+  gather_facts: no
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Parse the provided configuration
+      junos_interfaces:
+        config:
+          - name: ge-0/0/1
+        state: parsed
+      register: result
+
+    - name: Print parsed configuration
+      anisble.builtin.debug:
+        var: result.config

@@ -1,0 +1,17 @@
+---
+- name: Deleted Operation on Junos Interfaces
+  hosts: junos
+  gather_facts: no
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Delete the specified interface configuration
+      junos_interfaces:
+        config:
+          - name: ge-0/0/1
+        state: deleted
+      register: result
+
+    - name: Print result
+      debug:
+        var: result

@@ -1,0 +1,26 @@
+---
+- name: Merged Operation on EOS Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Merge the provided configuration with the existing running configuration
+      arista.eos.eos_interfaces:
+        config:
+          - name: Ethernet1
+            description: Configured by Ansible - Interface 1
+            mtu: 1024
+            speed: 100m
+            enabled: false
+            duplex: full
+          - name: Ethernet2
+            description: Configured by Ansible - Interface 2
+            mtu: 2048
+            speed: 10m
+        state: merged
+      register: result
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result

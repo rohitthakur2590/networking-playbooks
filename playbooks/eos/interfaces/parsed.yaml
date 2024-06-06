@@ -1,0 +1,17 @@
+---
+- name: Parsed Operation on EOS Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Parse the provided configuration
+      arista.eos.eos_interfaces:
+        config:
+          - name: Ethernet1
+        state: parsed
+      register: result
+
+    - name: Print parsed configuration
+      ansible.builtin.debug:
+        var: result.config
