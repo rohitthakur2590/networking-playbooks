@@ -1,0 +1,17 @@
+---
+- name: Deleted Operation on iosxr Interfaces
+  hosts: iosxr
+  gather_facts: false
+  collections:
+    - cisco.iosxr
+  tasks:
+    - name: Delete the specified interface configuration
+      cisco.iosxr.iosxr_interfaces:
+        config:
+          - name: Ethernet1
+        state: deleted
+      register: result
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result

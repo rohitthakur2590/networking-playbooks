@@ -1,0 +1,15 @@
+---
+- name: Gathered Operation on iosxr Interfaces
+  hosts: iosxr
+  gather_facts: false
+  collections:
+    - cisco.iosxr
+  tasks:
+    - name: Gather information about the interfaces
+      cisco.iosxr.iosxr_interfaces:
+        state: gathered
+      register: result
+
+    - name: Print gathered information
+      ansible.builtin.debug:
+        var: result.config

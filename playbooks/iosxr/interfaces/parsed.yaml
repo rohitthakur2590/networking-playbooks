@@ -1,0 +1,16 @@
+---
+- name: Parsed Operation on iosxr Interfaces
+  hosts: iosxr
+  gather_facts: false
+  collections:
+    - cisco.iosxr
+  tasks:
+    - name: Parse the provided configuration
+      cisco.iosxr.iosxr_interfaces:
+        running_config: "{{ _running_config }}"
+        state: parsed
+      register: result
+
+    - name: Print parsed configuration
+      ansible.builtin.debug:
+        var: result.config

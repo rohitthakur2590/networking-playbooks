@@ -8,7 +8,7 @@
     - name: Parse existing interface configuration
       register: parsed_interfaces
       arista.eos.eos_l3_interfaces:
-        config: "{{ config }}"
+        running_config: "{{ config }}"
         state: parsed
 
     - name: Print parsed configuration
