@@ -1,0 +1,43 @@
+---
+- name: Context https://github.com/ansible-collections/junipernetworks.junos/issues/458
+  hosts: junos
+  collections:
+    - junipernetworks.junos
+
+  tasks:
+    # - name: Gather interfaces
+    #   junipernetworks.junos.junos_interfaces:
+    #     state: gathered
+    #   register: result
+
+    # - name: Print result
+    #   ansible.builtin.debug:
+    #     msg: "{{ result }}"
+
+    - name: Gather interfaces
+      junipernetworks.junos.junos_l3_interfaces:
+        state: gathered
+      register: result
+
+    - name: Print result
+      ansible.builtin.debug:
+        msg: "{{ result }}"
+
+    # - name: Gather vlans
+    #   junipernetworks.junos.junos_vlans:
+    #     state: gathered
+    #   register: result
+
+    # - name: Print result
+    #   ansible.builtin.debug:
+    #     msg: "{{ result }}"
+
+    # - name: Get JunOS Facts
+    #   junipernetworks.junos.junos_facts:
+    #     # gather_subset: [ hardware,interfaces ]
+    #     gather_network_resources: [ lacp,lacp_interfaces,lag_interfaces,l2_interfaces,l3_interfaces,interfaces,vlans]
+    #   register: facts
+    
+    # - name: Print result
+    #   ansible.builtin.debug:
+    #     msg: "{{ facts }}"

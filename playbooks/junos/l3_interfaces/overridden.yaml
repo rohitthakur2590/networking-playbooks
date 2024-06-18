@@ -1,0 +1,25 @@
+---
+- name: Overridden Operation on Junos Interfaces
+  hosts: junos
+  gather_facts: no
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Override the current configuration with the provided configuration
+      junos_interfaces:
+        config:
+          - name: ge-0/0/1
+            description: New Configuration by Ansible - Interface 1
+            mtu: 1500
+            speed: 1g
+            enabled: true
+            duplex: half-duplex
+            hold_time:
+              up: 1000
+              down: 1200
+        state: overridden
+      register: result
+
+    - name: Print result
+      debug:
+        var: result

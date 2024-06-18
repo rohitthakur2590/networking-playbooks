@@ -1,0 +1,16 @@
+---
+- name: Parsed Operation on EOS Layer 3 Interfaces
+  hosts: eos
+  gather_facts: no
+  collections:
+    - arista.eos
+  tasks:
+    - name: Parse existing interface configuration
+      register: parsed_static_routes
+      arista.eos.eos_static_routes:
+        running_config: "{{ lookup('file', '_parsed.cfg') }}"
+        state: parsed
+
+    - name: Print parsed configuration
+      ansible.builtin.debug:
+        var: parsed_static_routes

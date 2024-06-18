@@ -1,0 +1,22 @@
+---
+- name: Deleted Operation on Junos l3_interfaces
+  hosts: junos
+  gather_facts: false
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Delete the specified interface configuration
+      junipernetworks.junos.junos_l3_interfaces:
+        config:
+          - name: ge-0/0/0
+            ipv4:
+              - address: 10.10.10.22/31
+              - address: 10.10.10.20/31
+            mtu: 1450
+            unit: '100'
+        state: deleted
+      register: result
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result

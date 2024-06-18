@@ -1,0 +1,38 @@
+---
+
+- name: Resolve (https://issues.redhat.com/browse/ANA-370)
+  hosts: eos
+  collections:
+    arista.eos
+  tasks:
+
+    - name: test getting default facts
+      become: true
+      register: result
+      arista.eos.eos_facts:
+
+    - name: Print facts result
+      ansible.builtin.debug:
+        var: "{{ result }}"
+
+    # - name: Populate config
+    #   arista.eos.eos_config:
+    #     lines:
+    #       - "vrf instance testvrf"
+    #       - "vrf instance vrftest1"
+    #       - "ip route 10.1.1.0/24 Management1"
+    #       - "ip route 10.1.1.0/24 Ethernet1 20.1.1.3 track bfd 200"
+    #       - "ip route 10.50.0.0/16 Management1"
+    #       - "ip route 23.1.0.0/16 Nexthop-Group testgrp tag 42"
+    #       - "ip route vrf testvrf 120.1.1.0/24 Ethernet1 23"
+    #       - "ip route vrf vrftest1 77.77.1.0/24 33.1.1.1"
+    #       - "ipv6 route 1000:10::/64 Ethernet1 67 tag 98"
+
+    # - name: Gather Static routes
+    #   arista.eos.eos_static_routes:
+    #     state: gathered
+    #   register: result
+    
+    # - name: Display gathered facts
+    #   ansible.builtin.debug:
+    #     var: "{{ result }}"
