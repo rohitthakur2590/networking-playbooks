@@ -1,0 +1,15 @@
+---
+- name: Gathered Operation on Junos l3_interfaces
+  hosts: junos
+  gather_facts: no
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Gather information about the l3_interfaces
+      junos_l3_interfaces:
+        state: gathered
+      register: result
+
+    - name: Print gathered information
+      debug:
+        var: result.config

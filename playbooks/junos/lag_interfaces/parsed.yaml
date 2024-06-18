@@ -1,0 +1,16 @@
+---
+- name: Parsed Operation on Junos Interfaces
+  hosts: junos
+  gather_facts: false
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Parse externally provided interfaces config to agnostic model
+      register: result
+      junipernetworks.junos.junos_lag_interfaces:
+        running_config: "{{ lookup('file', './fixtures/parsed.cfg') }}"
+        state: parsed
+
+    - name: Print parsed configuration
+      ansible.builtin.debug:
+        var: result

@@ -6,11 +6,11 @@
     - arista.eos
   tasks:
     - name: Parse existing interface configuration
-      register: parsed_interfaces
-      arista.eos.eos_l3_interfaces:
-        running_config: "{{ config }}"
+      register: parsed_static_routes
+      arista.eos.eos_static_routes:
+        running_config: "{{ lookup('file', '_parsed.cfg') }}"
         state: parsed
 
     - name: Print parsed configuration
       ansible.builtin.debug:
-        var: parsed_interfaces
+        var: parsed_static_routes

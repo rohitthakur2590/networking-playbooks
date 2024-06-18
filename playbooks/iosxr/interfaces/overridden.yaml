@@ -1,0 +1,27 @@
+---
+- name: Replaced Operation on Cisco IOSXR Interfaces
+  hosts: iosxr
+  gather_facts: false
+  collections:
+    - cisco.iosxr
+  tasks:
+    - name: Set interface configuration
+      ansible.builtin.set_fact:
+        config:
+          - name: GigabitEthernet0/0/0/1
+            description: Configured and Overridden by Ansible-Network
+            enabled: false
+            duplex: full
+            mtu: 2000
+            speed: 100
+        state: overridden
+
+    - name: Replaced provided configuration with device configuration
+      register: result
+      cisco.iosxr.iosxr_interfaces:
+        config: "{{ config }}"
+        state: merged
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result

@@ -1,0 +1,15 @@
+---
+- name: Gathered Operation on Junos lag interfaces
+  hosts: junos
+  gather_facts: false
+  collections:
+    - junipernetworks.junos
+  tasks:
+    - name: Gather information about the lag_interfaces
+      junipernetworks.junos.junos_lag_interfaces:
+        state: gathered
+      register: result
+
+    - name: Print gathered information
+      ansible.builtin.debug:
+        var: result

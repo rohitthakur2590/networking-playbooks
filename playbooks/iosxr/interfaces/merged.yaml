@@ -1,0 +1,33 @@
+---
+- name: Merged Operation on Cisco IOSXR Interfaces
+  hosts: iosxr
+  gather_facts: false
+  collections:
+    - cisco.iosxr
+  tasks:
+    - name: Set interface configuration
+      ansible.builtin.set_fact:
+        config:
+          - name: GigabitEthernet0/0/0/0
+            description: Configured and Merged by Ansible-Network
+            mtu: 110
+            enabled: true
+            duplex: half
+
+          - name: GigabitEthernet0/0/0/1
+            description: Configured and Merged by Ansible-Network
+            mtu: 2800
+            enabled: false
+            speed: 100
+            duplex: full
+        state: merged
+
+    - name: Merge provided configuration with device configuration
+      register: result
+      cisco.iosxr.iosxr_interfaces:
+        config: "{{ config }}"
+        state: merged
+
+    - name: Print result
+      ansible.builtin.debug:
+        var: result
